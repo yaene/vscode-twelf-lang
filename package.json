@@ -1,0 +1,25 @@
+{
+    "name": "twelf-lang",
+    "displayName": "Twelf Lang",
+    "description": "Syntax highlighting for Twelf",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.65.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "twelf",
+            "aliases": ["Twelf", "twelf"],
+            "extensions": [".elf"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "twelf",
+            "scopeName": "source.twelf",
+            "path": "./syntaxes/twelf.tmLanguage.json"
+        }]
+    }
+}
