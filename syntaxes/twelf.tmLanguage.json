@@ -1,32 +1,74 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "Twelf",
-	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		}
-	],
-	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.twelf",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.twelf",
-			"begin": "\"",
-			"end": "\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape.twelf",
-					"match": "\\\\."
-				}
-			]
-		}
-	},
-	"scopeName": "source.twelf"
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Twelf",
+  "patterns": [
+    { "include": "#declarations" },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#comments"
+    },
+    { "include": "#operators" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.percentage.twelf",
+          "match": "%[^a-z{].*$"
+        },
+        {
+          "name": "comment.block.twelf",
+          "begin": "%{",
+          "end": "}%"
+        }
+      ]
+    },
+    "declarations": {
+      "patterns": [
+        {
+          "match": "([^[:space:]]+)[[:space:]]+:[[:space:]]+.*(type).[[:space:]]?$",
+          "captures": {
+            "1": { "name": "entity.name.function" },
+            "2": { "name": "keyword.other.twelf" }
+          }
+        },
+        {
+          "match": "([^[:space:]]+)[[:space:]]+:[[:space:]]+.*(?!type).[[:space:]]?$",
+          "captures": {
+            "1": { "name": "support.type.twelf" }
+          }
+        },
+        {
+          "match": "([^[:space:]]+)[[:space:]]?=",
+          "captures": {
+            "1": { "name": "entity.name.function" }
+          }
+        }
+      ]
+    },
+
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.twelf",
+          "match": "(\\%mode|\\%infix|\\%prefix|\\%abbrev|\\%postfix|\\%name|\\%freeze|\\%clause|\\%define|\\%solve|\\%querytabled|\\%query|\\%tabled|\\%deterministic|\\%unique|\\%block|\\%worlds|\\%covers|\\%total|\\%terminates|\\%reduces|\\%theorem|\\%prove|\\%assert|\\%establish|\\%sig|\\%struct|\\%where|\\%include|\\%open|\\%use)\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.twelf",
+          "match": "(->|<-)"
+        },
+        {
+          "name": "keyword.other.twelf punctuation.other.colon punctuation.colon",
+          "match": ":"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.twelf"
 }
