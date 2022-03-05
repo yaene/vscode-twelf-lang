@@ -5,6 +5,7 @@
   "repository": {
     "url": "https://github.com/yaene/vscode-twelf-lang"
   },
+  "publisher": "yaene",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.65.0"

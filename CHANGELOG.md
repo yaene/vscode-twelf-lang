@@ -2,8 +2,10 @@
 
 All notable changes to the "twelf-lang" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
 ## [Unreleased]
 
+## [0.0.1]
+
 - Initial release
+
+[0.0.1]: https://github.com/yaene/vscode-twelf-lang/releases/tag/v0.0.1
