@@ -28,9 +28,9 @@
     "declarations": {
       "patterns": [
         {
-          "match": "([^[:space:]]+)[[:space:]]+(:)",
+          "match": "([^[:space:]]+)[[:space:]]*(:)",
           "captures": {
-            "1": { "name": "support.type.twelf" },
+            "1": { "name": "entity.name.function.twelf" },
             "2": {
               "name": "keyword.other.twelf punctuation.other.colon punctuation.colon"
             }
@@ -40,13 +40,13 @@
           "match": "^([^%:]+)[[:space:]]*=",
           "captures": {
             "1": {
-              "name": "entity.name.function"
+              "name": "variable.other.declaration.twelf"
             }
           }
         },
         {
           "name": "variable.parameter.twelf",
-          "match": "(^|[+-]|[[:space:]])[A-Z][[:alnum:]]*"
+          "match": "\\b[A-Z][[:alnum:]]*\\b"
         }
       ]
     },
