@@ -37,9 +37,9 @@
           }
         },
         {
-          "match": "^([^%:]+)[[:space:]]*=",
+          "match": "(^|\\.)([^%:[:space:]]*?)[[:space:]]*=",
           "captures": {
-            "1": {
+            "2": {
               "name": "variable.other.declaration.twelf"
             }
           }
