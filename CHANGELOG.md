@@ -2,6 +2,17 @@
 
 All notable changes to the "twelf-lang" extension will be documented in this file.
 
+## [0.0.3]
+
+### Fixed
+
+- greedy matching of expression before =
+
+### Changed
+
+- expression before : now assigned to entity.name.function
+- expression before = now assigned to variable.other.declaration
+
 ## [0.0.2]
 
 ### Added
@@ -12,5 +23,6 @@ syntax highlighting for capitalized words
 
 - Initial release
 
+[0.0.3]: https://github.com/yaene/vscode-twelf-lang/releases/tag/v0.0.3
 [0.0.2]: https://github.com/yaene/vscode-twelf-lang/releases/tag/v0.0.2
 [0.0.1]: https://github.com/yaene/vscode-twelf-lang/releases/tag/v0.0.1

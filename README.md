@@ -10,6 +10,4 @@ Syntax highlighting for Twelf.
 
 ## Release Notes
 
-### 0.0.1
-
-Initial release of twelf lang
+See changelog.
