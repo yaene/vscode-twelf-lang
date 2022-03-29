@@ -59,7 +59,7 @@
         },
         {
           "name": "keyword.other",
-          "match": "(\\.|:|type)"
+          "match": "(\\.|:|\\btype\\b)"
         }
       ]
     },
@@ -67,7 +67,7 @@
       "patterns": [
         {
           "name": "keyword.operator.twelf",
-          "match": "(->|<-)"
+          "match": "([[:space:]]|^)+(->|<-)[[:space:]]+"
         }
       ]
     }
