@@ -2,6 +2,12 @@
 
 All notable changes to the "twelf-lang" extension will be documented in this file.
 
+## [0.0.5]
+
+### Fixed
+
+- fixed word boundaries for "type" and "->,<-"
+
 ## [0.0.4]
 
 ### Fixed
@@ -29,6 +35,7 @@ syntax highlighting for capitalized words
 
 - Initial release
 
+[0.0.5]: https://github.com/yaene/vscode-twelf-lang/releases/tag/v0.0.5
 [0.0.4]: https://github.com/yaene/vscode-twelf-lang/releases/tag/v0.0.3
 [0.0.3]: https://github.com/yaene/vscode-twelf-lang/releases/tag/v0.0.3
 [0.0.2]: https://github.com/yaene/vscode-twelf-lang/releases/tag/v0.0.2
