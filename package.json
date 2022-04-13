@@ -13,6 +13,10 @@
   "categories": [
     "Programming Languages"
   ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:twelf"
+  ],
   "contributes": {
     "languages": [
       {
@@ -33,6 +37,20 @@
         "scopeName": "source.twelf",
         "path": "./syntaxes/twelf.tmLanguage.json"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Twelf",
+      "properties": {
+        "twelf-server-path": {
+          "type": "string",
+          "title": "Twelf interpreter path",
+          "default": "/usr/local/bin/twelf-server",
+          "comment": "defaults to /usr/local/bin/twelf-server"
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "file-uri-to-path": "^2.0.0"
   }
 }
