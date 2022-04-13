@@ -141,7 +141,7 @@ function didSaveDocument(document) {
 				if (e){(console.log ("error writing", e))}});
 		} else {
 			smlOutput.appendLine("path is " + path);
-			sml.stdin.write("loadFile " + path + "\n", (e) => {
+			sml.stdin.write("reset\nloadFile " + path + "\n", (e) => {
 				if (e){(console.log ("error writing", e))}});
 		}
 		// sml.stdin.flush();
