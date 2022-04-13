@@ -32,7 +32,8 @@ function processPendingLines(){
 		let uri;
 		try {
 			// uri = vscode.Uri.parse(`file://${rootPath}/${path}`);
-			uri = vscode.Uri.file(path);
+			// uri = vscode.Uri.file(path);
+			uri = path;
 		}
 		catch (err) {
 			continue;
@@ -63,11 +64,13 @@ function processPendingLines(){
 
 
 	}
+	for (const [key, value] of collatedDiagnostics.entries()) {
+		if (value.length > 2){
+			value.pop();
+		}
+	  }
 	let allDiags = Array.from(collatedDiagnostics.entries());
-	// collatedDiagnostics.forEach((value, key) => {
-	// 	diagnostics.set(key, value);
-	// });
-		diagnostics.set(allDiags);
+	diagnostics.set(allDiags.map(([path, errs]) => [vscode.Uri.file(path), errs]));
 	console.log("diag set");
 
 }
