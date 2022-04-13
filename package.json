@@ -50,7 +50,5 @@
       }
     }
   },
-  "dependencies": {
-    "file-uri-to-path": "^2.0.0"
-  }
+  "dependencies": {}
 }

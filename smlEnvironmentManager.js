@@ -16,6 +16,10 @@ function resetDiagnostics(){
 }
 
 function processPendingLines(){
+// COPIED FROM https://marketplace.visualstudio.com/items?itemName=freebroccolo.sml
+// NOTICE: possibly without copyright as the code is not under a open source license (it is closed source! 
+// I extracted the code from the vscode extension market place)
+// SO I am not going to publish this (or redistribute) until the author has given explicit permission
 	diagnostics.clear();
 	errregex = /^(.+?):(\d+)\.(\d+)(?:-(\d+).(\d+))?\s(\b(?:Error)\b):\s(.*(?:\n\s+.*)*)/m;
 	const collatedDiagnostics = new Map();
@@ -65,6 +69,7 @@ function processPendingLines(){
 
 	}
 	for (const [key, value] of collatedDiagnostics.entries()) {
+		// remove the errors count that is printed at the end of every file
 		if (value.length > 2){
 			value.pop();
 		}
@@ -145,47 +150,6 @@ function didSaveDocument(document) {
 	}
 }
 
-// async function execCode(code) {
-// 	while (!sml && !allowNextCommand) { ; }
-
-// 	if (sml.exitCode === 0 || sml.exitCode)
-// 		vscode.window.showErrorMessage("SML process died");
-// 	else {
-// 		try {
-// 			allowNextCommand = false;
-// 			sml.stdin.write(code + ";;;;\r\n");
-// 		} catch (error) {
-// 			smlOutput.append(error.message);
-// 		}
-// 	}
-// 	await vscode.commands.executeCommand(
-// 		"workbench.action.terminal.scrollToBottom"
-// 	);
-// }
-
-
-// async function execShortCode() {
-// 	const editor = vscode.window.activeTextEditor;
-
-// 	if (editor) {
-// 		const document = editor.document;
-// 		const selection = editor.selection;
-// 		const code = document.getText(selection);
-// 		execCode(code);
-// 	}
-// }
-
-// async function execCurrentFile() {
-// 	restart()
-
-// 	const editor = vscode.window.activeTextEditor;
-
-// 	if (editor) {
-// 		const document = editor.document
-// 		const code = document.getText()
-// 		execCode(code);
-//   }
-// }
 
 function restart() {
 	if (sml.exitCode !== 0 && !sml.exitCode) {
@@ -204,6 +168,4 @@ module.exports = {
 	stop,
 	restart,
 	didSaveDocument
-	// execShortCode,
-	// execCurrentFile
 };
