@@ -50,7 +50,7 @@ function processPendingLines(){
 		// collect all messages before next diagnostic line
 		i++;
 		while (i < pendingLines.length && pendingLines[i].match(errregex) == null ){
-			message += pendingLines[i];
+			message += "\n" + pendingLines[i];
 			i++;
 		}
 		// we've either reached the end of the output or next err line
