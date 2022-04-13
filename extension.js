@@ -25,7 +25,6 @@ function activate(context) {
 
 	context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(smlEnviron.didSaveDocument));
 }
-exports.activate = activate;
 
 // this method is called when your extension is deactivated
 function deactivate() {
