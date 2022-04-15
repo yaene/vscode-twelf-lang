@@ -68,14 +68,19 @@ function processPendingLines(){
 
 
 	}
-	for (const [key, value] of collatedDiagnostics.entries()) {
-		// remove the errors count that is printed at the end of every file
-		if (value.length > 2){
-			value.pop();
-		}
-	  }
+	// for (const [key, value] of collatedDiagnostics.entries()) {
+	// 	// remove the errors count that is printed at the end of every file
+	// 	if (value.length > 2){
+	// 		value.pop();
+	// 	}
+	//   }
 	let allDiags = Array.from(collatedDiagnostics.entries());
-	diagnostics.set(allDiags.map(([path, errs]) => [vscode.Uri.file(path), errs]));
+	diagnostics.set(allDiags.map(([path, errs]) => {
+		let uri =vscode.Uri.file(path);
+		// remove the errors count that is printed at the end of every file
+		errs.pop();
+		return [uri, errs]
+	}));
 	console.log("diag set");
 
 }
