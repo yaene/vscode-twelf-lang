@@ -8,6 +8,7 @@ let sml;
 let diagnostics;
 const smlOutput = vscode.window.createOutputChannel("Twelf");
 let allowNextCommand;
+let cid = 0; // increase per processing
 let pendingLines = [];
 
 function resetDiagnostics(){
@@ -16,6 +17,7 @@ function resetDiagnostics(){
 }
 
 function processPendingLines(){
+	cid += 1;
 // COPIED FROM https://marketplace.visualstudio.com/items?itemName=freebroccolo.sml
 // NOTICE: possibly without copyright as the code is not under a open source license (it is closed source! 
 // I extracted the code from the vscode extension market place)
@@ -78,8 +80,10 @@ function processPendingLines(){
 	diagnostics.set(allDiags.map(([path, errs]) => {
 		let uri =vscode.Uri.file(path);
 		// remove the errors count that is printed at the end of every file
-		errs.pop();
-		return [uri, errs]
+		if (/\d+\serrors?\sfound/.test(errs[errs.length -1].message)){
+			errs.pop();
+		}
+		return [uri, errs];
 	}));
 	console.log("diag set");
 
