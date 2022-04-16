@@ -58,8 +58,15 @@ let processPendingLines = function (){
 		let message = match.shift();
 		// collect all messages before next diagnostic line
 		i++;
-		while (i < pendingLines.length && pendingLines[i].match(errregex) == null ){
-			message += "\n" + pendingLines[i];
+		while (i < pendingLines.length && pendingLines[i].match(errregex) == null){
+			if (/^\[Closing file/.test(pendingLines[i]))
+			{
+				// filter out certain twelf statistical information
+			}
+			else
+			{
+				message += "\n" + pendingLines[i];
+			}
 			i++;
 		}
 		// we've either reached the end of the output or next err line
