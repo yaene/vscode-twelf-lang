@@ -7,16 +7,19 @@ const fs = require('fs')
 let sml;
 let diagnostics;
 const smlOutput = vscode.window.createOutputChannel("Twelf");
-let allowNextCommand;
 let cid = 0; // increase per processing
 let pendingLines = [];
+let currentTimeOutOfProcessing = undefined;
+
+let statusBarItem;
 
 function resetDiagnostics(){
 	pendingLines = [];
 	// diagnostics.clear();
 }
 
-function processPendingLines(){
+let processPendingLines = function (){
+	currentTimeOutOfProcessing = undefined;
 	cid += 1;
 // COPIED FROM https://marketplace.visualstudio.com/items?itemName=freebroccolo.sml
 // NOTICE: possibly without copyright as the code is not under a open source license (it is closed source! 
@@ -77,15 +80,23 @@ function processPendingLines(){
 	// 	}
 	//   }
 	let allDiags = Array.from(collatedDiagnostics.entries());
+	let errsCount = 0;
 	diagnostics.set(allDiags.map(([path, errs]) => {
 		let uri =vscode.Uri.file(path);
 		// remove the errors count that is printed at the end of every file
 		if (/\d+\serrors?\sfound/.test(errs[errs.length -1].message)){
 			errs.pop();
 		}
+		errsCount += errs.length;
 		return [uri, errs];
 	}));
 	console.log("diag set");
+	if (errsCount == 0){
+		statusBarItem.text = `Twelf: OK`
+	} else {
+		statusBarItem.text = `Twelf: ${errsCount} error${errsCount > 1 ? "s" : ""} found`
+	}
+	statusBarItem.show();
 
 }
 function start() {
@@ -95,6 +106,8 @@ function start() {
 	.get("twelf-server-path", "/usr/local/bin/twelf-server");
 
 	diagnostics = vscode.languages.createDiagnosticCollection("twelf");
+	statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
+	statusBarItem.name = "Twelf Status"
 
 	var cwd = {};
 	if (vscode.workspace.workspaceFolders !== undefined) {
@@ -105,7 +118,9 @@ function start() {
 		console.log("Unable to set working directory, no current workspace folder");
 	}
 	
-	sml = spawn(interpreter, [], Object.assign({ shell: true }, cwd));
+	// to get type inference
+	let localsml = spawn(interpreter, [], Object.assign({ shell: true }, cwd));
+	sml = localsml
 	
 	sml.stdin.setEncoding("utf-8");
 	sml.stdout.setEncoding("utf-8");
@@ -130,7 +145,12 @@ function start() {
 		// smlOutput.show(false);
 		smlOutput.append(data + `\n`);
 		pendingLines = pendingLines.concat(data.toString().split("\n"));
-		processPendingLines();
+		if (currentTimeOutOfProcessing) {
+			clearTimeout(currentTimeOutOfProcessing);
+		}
+		currentTimeOutOfProcessing = setTimeout(() => {
+			processPendingLines();
+		}, 50); // 50 ms delay before processing events
 	});
 	smlOutput.show(false);
 }
@@ -140,6 +160,7 @@ function didSaveDocument(document) {
 	console.log ("detected save " + document.uri);
 	smlOutput.appendLine ("detected save " + document.uri);
 	if ( document.languageId == "twelf"){
+		statusBarItem.text = `Twelf: Checking`
 		let path = document.uri.fsPath;
 		resetDiagnostics();
 		let supposedConfigFile = pathutil.join(pathutil.dirname(path) ,  "/sources.cfg");
@@ -153,6 +174,7 @@ function didSaveDocument(document) {
 			sml.stdin.write("reset\nloadFile " + path + "\n", (e) => {
 				if (e){(console.log ("error writing", e))}});
 		}
+		console.log("command sent")
 		// sml.stdin.flush();
 	} else {
 		smlOutput.appendLine("ignored uri "+ document.uri);
