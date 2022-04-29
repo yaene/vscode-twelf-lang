@@ -157,7 +157,7 @@ function start() {
 		}
 		currentTimeOutOfProcessing = setTimeout(() => {
 			processPendingLines();
-		}, 50); // 50 ms delay before processing events
+		}, 50); // 50 ms delay before processing events, cancel processing if additional data received within 50ms
 	});
 	smlOutput.show(false);
 }
@@ -194,6 +194,7 @@ function restart() {
 		sml.stdin.end();
 	}
 	sml.kill();
+	statusBarItem.dispose();
 	start();
 }
 	

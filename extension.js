@@ -15,13 +15,9 @@ function activate(context) {
 	smlEnviron.start();
 	console.log('Congratulations, your extension "twelf" is now active!');
 	
-	// let execShortCode = vscode.commands.registerCommand('sml-environment.execShortCode', () => smlEnviron.execShortCode());
 	let restartRepl = vscode.commands.registerCommand('twelf-server.restart', () => smlEnviron.restart());
-	// let execCurrentFile = vscode.commands.registerCommand('sml-environment.execCurrentFile', () => smlEnviron.execCurrentFile())
 	
-	// context.subscriptions.push(execShortCode);
 	context.subscriptions.push(restartRepl);	
-	// context.subscriptions.push(execCurrentFile)
 
 	context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(smlEnviron.didSaveDocument));
 }

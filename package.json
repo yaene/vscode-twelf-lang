@@ -15,9 +15,17 @@
   ],
   "main": "./extension.js",
   "activationEvents": [
-    "onLanguage:twelf"
+    "onLanguage:twelf",
+    "onCommand:twelf-server.restart"
   ],
   "contributes": {
+    "commands": [
+      {
+        "command": "twelf-server.restart",
+        "title": "Restart",
+        "category": "Twelf Server"
+      }
+    ],
     "languages": [
       {
         "id": "twelf",
