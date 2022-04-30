@@ -13,7 +13,19 @@
   "categories": [
     "Programming Languages"
   ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:twelf",
+    "onCommand:twelf-server.restart"
+  ],
   "contributes": {
+    "commands": [
+      {
+        "command": "twelf-server.restart",
+        "title": "Restart",
+        "category": "Twelf Server"
+      }
+    ],
     "languages": [
       {
         "id": "twelf",
@@ -33,6 +45,18 @@
         "scopeName": "source.twelf",
         "path": "./syntaxes/twelf.tmLanguage.json"
       }
-    ]
-  }
+    ],
+    "configuration": {
+      "title": "Twelf",
+      "properties": {
+        "twelf-server-path": {
+          "type": "string",
+          "title": "Twelf interpreter path",
+          "default": "/usr/local/bin/twelf-server",
+          "comment": "defaults to /usr/local/bin/twelf-server"
+        }
+      }
+    }
+  },
+  "dependencies": {}
 }
