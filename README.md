@@ -3,6 +3,7 @@
 ## Features
 
 Syntax highlighting for Twelf.
+Integrate twelf-server into vscode.
 
 ## Requirements
 
